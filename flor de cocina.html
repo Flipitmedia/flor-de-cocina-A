@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flor de Cocina | Huerto y Cocina - Platos Preparados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-cream: #FDF8F3;
+            --color-sage: #7D8B6F;
+            --color-sage-light: #A8B89A;
+            --color-sage-dark: #5C6B4E;
+            --color-terracotta: #C4785C;
+            --color-terracotta-light: #E8A088;
+            --color-brown: #3D3229;
+            --color-brown-light: #6B5D4D;
+            --color-gold: #C9A962;
+            --color-white: #FFFFFF;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+            --shadow-soft: 0 4px 20px rgba(61, 50, 41, 0.08);
+            --shadow-medium: 0 8px 40px rgba(61, 50, 41, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-cream);
+            color: var(--color-brown);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(253, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(125, 139, 111, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-brown);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-sage-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-tagline {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-sage);
+            margin-top: -2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-brown-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--color-sage-dark);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-sage);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cart-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--color-brown);
+            color: var(--color-cream);
+            padding: 0.75rem 1.25rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background: var(--color-sage-dark);
+            transform: translateY(-2px);
+        }
+
+        .cart-count {
+            background: var(--color-terracotta);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: -10%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-sage) 100%);
+            border-radius: 0 0 0 40%;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .hero-decoration {
+            position: absolute;
+            top: 20%;
+            right: 5%;
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--color-sage-light);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text h1 span {
+            color: var(--color-sage);
+            font-style: italic;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--color-brown-light);
+            margin-bottom: 2rem;
+            max-width: 480px;
+        }
+
+        .hero-features {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--color-brown-light);
+        }
+
+        .hero-feature-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--color-sage-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--color-terracotta);
+            color: var(--color-white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(196, 120, 92, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-brown);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(196, 120, 92, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--color-brown);
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--color-brown);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-brown);
+            color: var(--color-cream);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image-main {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 4/5;
+            background: linear-gradient(145deg, var(--color-sage-light) 0%, var(--color-sage) 100%);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-size: 1.2rem;
+            font-style: italic;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image-main::before {
+            content: '🥘';
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.2;
+        }
+
+        .hero-badge {
+            position: absolute;
+            bottom: -20px;
+            left: -30px;
+            background: var(--color-white);
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-badge-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--color-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .hero-badge-text {
+            font-size: 0.85rem;
+        }
+
+        .hero-badge-text strong {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--color-brown);
+        }
+
+        /* Shipping Banner */
+        .shipping-banner {
+            background: var(--color-sage-dark);
+            color: var(--color-cream);
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        .shipping-banner-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .shipping-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .shipping-item strong {
+            color: var(--color-gold);
+        }
+
+        /* Plans Section */
+        .plans {
+            padding: 6rem 2rem;
+            background: var(--color-white);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--color-sage-light);
+            color: var(--color-sage-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            color: var(--color-brown-light);
+            font-size: 1.1rem;
+        }
+
+        .plans-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .plan-card {
+            background: var(--color-cream);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .plan-card.featured {
+            border-color: var(--color-terracotta);
+            background: var(--color-white);
+        }
+
+        .plan-card.featured::before {
+            content: '⭐ Más Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-terracotta);
+            color: var(--color-white);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .plan-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--color-sage-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-card.featured .plan-icon {
+            background: var(--color-terracotta-light);
+        }
+
+        .plan-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-desc {
+            color: var(--color-brown-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-price-currency {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-brown-light);
+        }
+
+        .plan-price-amount {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .plan-price-period {
+            color: var(--color-brown-light);
+            font-size: 0.9rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+            color: var(--color-brown-light);
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            color: var(--color-sage);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .plan-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--color-brown);
+            background: transparent;
+            color: var(--color-brown);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .plan-btn:hover {
+            background: var(--color-brown);
+            color: var(--color-cream);
+        }
+
+        .plan-card.featured .plan-btn {
+            background: var(--color-terracotta);
+            border-color: var(--color-terracotta);
+            color: var(--color-white);
+        }
+
+        .plan-card.featured .plan-btn:hover {
+            background: var(--color-brown);
+            border-color: var(--color-brown);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 6rem 2rem;
+        }
+
+        .products-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--color-sage-light);
+            background: transparent;
+            color: var(--color-brown);
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--color-sage);
+            border-color: var(--color-sage);
+            color: var(--color-white);
+        }
+
+        .products-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .product-image {
+            position: relative;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-sage) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            font-size: 4rem;
+            opacity: 0.5;
+        }
+
+        .product-card:nth-child(1) .product-image::before { content: '🥩'; }
+        .product-card:nth-child(2) .product-image::before { content: '🍗'; }
+        .product-card:nth-child(3) .product-image::before { content: '🐟'; }
+        .product-card:nth-child(4) .product-image::before { content: '🥘'; }
+        .product-card:nth-child(5) .product-image::before { content: '🍚'; }
+        .product-card:nth-child(6) .product-image::before { content: '🥔'; }
+        .product-card:nth-child(7) .product-image::before { content: '🥗'; }
+        .product-card:nth-child(8) .product-image::before { content: '🌽'; }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--color-terracotta);
+            color: var(--color-white);
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .product-quick-add {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            width: 48px;
+            height: 48px;
+            background: var(--color-white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .product-card:hover .product-quick-add {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-quick-add:hover {
+            background: var(--color-terracotta);
+            color: var(--color-white);
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-sage);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: var(--color-brown-light);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .product-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.8rem;
+            color: var(--color-brown-light);
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(125, 139, 111, 0.15);
+        }
+
+        .product-price {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-terracotta);
+        }
+
+        .product-add-btn {
+            padding: 0.6rem 1.25rem;
+            background: var(--color-brown);
+            color: var(--color-cream);
+            border: none;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-add-btn:hover {
+            background: var(--color-sage-dark);
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: var(--color-sage-dark);
+            color: var(--color-cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .how-it-works::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+        }
+
+        .how-it-works .section-header {
+            color: var(--color-cream);
+        }
+
+        .how-it-works .section-tag {
+            background: rgba(255,255,255,0.15);
+            color: var(--color-cream);
+        }
+
+        .how-it-works .section-header p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .steps-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 45px;
+            left: 12%;
+            right: 12%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 90px;
+            height: 90px;
+            background: var(--color-terracotta);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 220px;
+            margin: 0 auto;
+        }
+
+        /* Preparation Info */
+        .preparation {
+            padding: 6rem 2rem;
+            background: var(--color-white);
+        }
+
+        .preparation-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .preparation-visual {
+            background: linear-gradient(145deg, var(--color-sage-light) 0%, var(--color-sage) 100%);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .preparation-timer {
+            font-family: var(--font-display);
+            font-size: 6rem;
+            font-weight: 600;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .preparation-timer span {
+            font-size: 2rem;
+            vertical-align: super;
+        }
+
+        .preparation-visual p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .preparation-text h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .preparation-text > p {
+            color: var(--color-brown-light);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .preparation-steps {
+            list-style: none;
+        }
+
+        .preparation-steps li {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(125, 139, 111, 0.15);
+        }
+
+        .preparation-steps li:last-child {
+            border-bottom: none;
+        }
+
+        .prep-step-num {
+            width: 36px;
+            height: 36px;
+            background: var(--color-sage-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .prep-step-content h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .prep-step-content p {
+            font-size: 0.9rem;
+            color: var(--color-brown-light);
+        }
+
+        /* Delivery Info */
+        .delivery {
+            padding: 6rem 2rem;
+            background: var(--color-cream);
+        }
+
+        .delivery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .delivery-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .delivery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .delivery-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--color-sage-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .delivery-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .delivery-card p {
+            color: var(--color-brown-light);
+            font-size: 0.95rem;
+        }
+
+        .delivery-days {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .delivery-day {
+            padding: 0.5rem 0.75rem;
+            background: var(--color-sage-light);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-sage-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-brown);
+            color: var(--color-cream);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .logo-text {
+            color: var(--color-cream);
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            max-width: 280px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-cream);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--color-terracotta);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--color-cream);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-payments {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .footer-payments span {
+            padding: 0.4rem 0.75rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+        }
+
+        /* Floating Cart */
+        .floating-cart {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 99;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .floating-cart-btn {
+            width: 64px;
+            height: 64px;
+            background: var(--color-terracotta);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(196, 120, 92, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+        }
+
+        .floating-cart-btn:hover {
+            transform: scale(1.1);
+            background: var(--color-brown);
+        }
+
+        .floating-cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 24px;
+            height: 24px;
+            background: var(--color-sage);
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-features {
+                justify-content: center;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-grid::before {
+                display: none;
+            }
+
+            .preparation-content {
+                grid-template-columns: 1fr;
+            }
+
+            .delivery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-brand {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-brand p {
+                max-width: 100%;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon">🌱</div>
+                <div>
+                    <div class="logo-text">Flor de Cocina</div>
+                    <div class="logo-tagline">Huerto y Cocina</div>
+                </div>
+            </a>
+            <nav>
+                <a href="#planes">Planes</a>
+                <a href="#productos">Productos</a>
+                <a href="#como-funciona">Cómo Funciona</a>
+                <a href="#cursos">Cursos</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            <a href="#carrito" class="cart-btn">
+                🛒 Carrito
+                <span class="cart-count">3</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-decoration"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Comida casera <span>de verdad</span>, lista en minutos</h1>
+                <p>Platos preparados por un chef con 25 años de experiencia, sellados al vacío y congelados. Calidad de restaurante en tu mesa, sin cocinar.</p>
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">⏱️</div>
+                        <span>Listo en 8 min</span>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">❄️</div>
+                        <span>Sellado al vacío</span>
+                    </div>
+                    <div class="hero-feature">
+                        <div class="hero-feature-icon">🚚</div>
+                        <span>Despacho Santiago</span>
+                    </div>
+                </div>
+                <a href="#planes" class="btn-primary">
+                    Ver Planes Semanales
+                    <span>→</span>
+                </a>
+                <a href="#productos" class="btn-secondary">
+                    Armar mi pedido
+                </a>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-main">
+                    [Foto plato destacado]
+                </div>
+                <div class="hero-badge">
+                    <div class="hero-badge-icon">👨‍🍳</div>
+                    <div class="hero-badge-text">
+                        <strong>25 años</strong>
+                        de experiencia culinaria
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shipping Banner -->
+    <div class="shipping-banner">
+        <div class="shipping-banner-inner">
+            <div class="shipping-item">
+                🚚 <strong>Envío gratis</strong> sobre $30.000
+            </div>
+            <div class="shipping-item">
+                📅 Despachos <strong>Lunes, Miércoles y Viernes</strong>
+            </div>
+            <div class="shipping-item">
+                📍 Cobertura <strong>Santiago</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plans Section -->
+    <section class="plans" id="planes">
+        <div class="section-header">
+            <span class="section-tag">Planes de Suscripción</span>
+            <h2>Elige tu plan semanal</h2>
+            <p>Recibe cada semana tus platos favoritos. Planifica tu alimentación y ahorra tiempo sin sacrificar calidad.</p>
+        </div>
+        <div class="plans-grid">
+            <div class="plan-card">
+                <div class="plan-icon">🥗</div>
+                <h3 class="plan-name">Plan Individual</h3>
+                <p class="plan-desc">Perfecto para una persona. 5 platos para la semana.</p>
+                <div class="plan-price">
+                    <span class="plan-price-currency">$</span>
+                    <span class="plan-price-amount">32.900</span>
+                    <span class="plan-price-period">/semana</span>
+                </div>
+                <ul class="plan-features">
+                    <li>5 platos principales a elección</li>
+                    <li>3 acompañamientos incluidos</li>
+                    <li>Despacho gratis en Santiago</li>
+                    <li>Pausa o cancela cuando quieras</li>
+                </ul>
+                <a href="#" class="plan-btn">Seleccionar Plan</a>
+            </div>
+            <div class="plan-card featured">
+                <div class="plan-icon">👨‍👩‍👧</div>
+                <h3 class="plan-name">Plan Familiar</h3>
+                <p class="plan-desc">Ideal para familias. 10 platos para toda la semana.</p>
+                <div class="plan-price">
+                    <span class="plan-price-currency">$</span>
+                    <span class="plan-price-amount">59.900</span>
+                    <span class="plan-price-period">/semana</span>
+                </div>
+                <ul class="plan-features">
+                    <li>10 platos principales a elección</li>
+                    <li>6 acompañamientos incluidos</li>
+                    <li>Despacho gratis en Santiago</li>
+                    <li>Pausa o cancela cuando quieras</li>
+                    <li>Bolsa térmica reutilizable</li>
+                </ul>
+                <a href="#" class="plan-btn">Seleccionar Plan</a>
+            </div>
+            <div class="plan-card">
+                <div class="plan-icon">🎒</div>
+                <h3 class="plan-name">Plan Universitario</h3>
+                <p class="plan-desc">Para estudiantes. Comida de mamá lejos de casa.</p>
+                <div class="plan-price">
+                    <span class="plan-price-currency">$</span>
+                    <span class="plan-price-amount">45.900</span>
+                    <span class="plan-price-period">/semana</span>
+                </div>
+                <ul class="plan-features">
+                    <li>7 platos principales</li>
+                    <li>4 acompañamientos incluidos</li>
+                    <li>Despacho gratis en Santiago</li>
+                    <li>Porciones individuales</li>
+                </ul>
+                <a href="#" class="plan-btn">Seleccionar Plan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="productos">
+        <div class="section-header">
+            <span class="section-tag">Nuestros Productos</span>
+            <h2>Arma tu pedido</h2>
+            <p>Elige tus platos favoritos. Cada uno viene sellado al vacío, listo para calentar y servir.</p>
+        </div>
+        <div class="products-tabs">
+            <button class="tab-btn active">Todos</button>
+            <button class="tab-btn">Proteínas</button>
+            <button class="tab-btn">Acompañamientos</button>
+            <button class="tab-btn">Packs</button>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">Favorito</span>
+                    <button class="product-quick-add">+</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Proteína</div>
+                    <h3 class="product-name">Carne Mechada al Vino</h3>
+                    <p class="product-desc">Carne de res desmechada, cocida lentamente en salsa de vino tinto con especias.</p>
+                    <div class="product-meta">
+                        <span class="product-meta-item">⏱️ 8 min</span>
+                        <span class="product-meta-item">👥 4-5 porc.</span>
+                        <span class="product-meta-item">❄️ 3 meses</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$8.900</span>
+                        <button class="product-add-btn">Agregar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <button class="product-quick-add">+</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Proteína</div>
+                    <h3 class="product-name">Pollo al Curry</h3>
+                    <p class="product-desc">Trozos de pollo en cremosa salsa de curry con leche de coco y especias.</p>
+                    <div class="product-meta">
+                        <span class="product-meta-item">⏱️ 8 min</span>
+                        <span class="product-meta-item">👥 4 porc.</span>
+                        <span class="product-meta-item">❄️ 3 meses</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$7.900</span>
+                        <button class="product-add-btn">Agregar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">Nuevo</span>
+                    <button class="product-quick-add">+</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Proteína</div>
+                    <h3 class="product-name">Salmón Teriyaki</h3>
+                    <p class="product-desc">Filete de salmón glaseado con salsa teriyaki casera y semillas de sésamo.</p>
+                    <div class="product-meta">
+                        <span class="product-meta-item">⏱️ 10 min</span>
+                        <span class="product-meta-item">👥 2 porc.</span>
+                        <span class="product-meta-item">❄️ 2 meses</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$11.900</span>
+                        <button class="product-add-btn">Agregar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <button class="product-quick-add">+</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Proteína</div>
+                    <h3 class="product-name">Costillar BBQ</h3>
+                    <p class="product-desc">Costillar de cerdo glaseado con salsa BBQ ahumada, tierno y jugoso.</p>
+                    <div class="product-meta">
+                        <span class="product-meta-item">⏱️ 10 min</span>
+                        <span class="product-meta-item">👥 4 porc.</span>
+                        <span class="product-meta-item">❄️ 3 meses</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$12.900</span>
+                        <button class="product-add-btn">Agregar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <button class="product-quick-add">+</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Acompañamiento</div>
+                    <h3 class="product-name">Arroz con Cilantro</h3>
+                    <p class="product-desc">Arroz jazmín aromático con cilantro fresco y un toque de limón.</p>
+                    <div class="product-meta">
+                        <span class="product-meta-item">⏱️ 5 min</span>
+                        <span class="product-meta-item">👥 4 porc.</span>
+                        <span class="product-meta-item">❄️ 3 meses</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$3.900</span>
+                        <button class="product-add-btn">Agregar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">Favorito</span>
+                    <button class="product-quick-add">+</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Acompañamiento</div>
+                    <h3 class="product-name">Gratín de Papas</h3>
+                    <p class="product-desc">Papas laminadas gratinadas con crema, queso gruyère y nuez moscada.</p>
+                    <div class="product-meta">
+                        <span class="product-meta-item">⏱️ 8 min</span>
+                        <span class="product-meta-item">👥 4 porc.</span>
+                        <span class="product-meta-item">❄️ 3 meses</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$4.900</span>
+                        <button class="product-add-btn">Agregar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <button class="product-quick-add">+</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Acompañamiento</div>
+                    <h3 class="product-name">Ensalada Mediterránea</h3>
+                    <p class="product-desc">Mix de hojas verdes, tomates cherry, aceitunas y queso feta.</p>
+                    <div class="product-meta">
+                        <span class="product-meta-item">⏱️ 0 min</span>
+                        <span class="product-meta-item">👥 2 porc.</span>
+                        <span class="product-meta-item">❄️ Fresco</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$4.500</span>
+                        <button class="product-add-btn">Agregar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <button class="product-quick-add">+</button>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Acompañamiento</div>
+                    <h3 class="product-name">Choclo Cremoso</h3>
+                    <p class="product-desc">Granos de choclo en salsa cremosa con mantequilla y albahaca.</p>
+                    <div class="product-meta">
+                        <span class="product-meta-item">⏱️ 5 min</span>
+                        <span class="product-meta-item">👥 4 porc.</span>
+                        <span class="product-meta-item">❄️ 3 meses</span>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">$3.500</span>
+                        <button class="product-add-btn">Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="section-header">
+            <span class="section-tag">Cómo Funciona</span>
+            <h2>De nuestra cocina a tu mesa</h2>
+            <p>En 4 simples pasos tendrás comida de calidad lista para disfrutar.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Elige tus platos</h3>
+                <p>Selecciona un plan o arma tu propio pedido con tus platos favoritos.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Te lo llevamos</h3>
+                <p>Recibe en tu domicilio los lunes, miércoles o viernes.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Guarda en el freezer</h3>
+                <p>Congela los platos. Duran hasta 3 meses sin perder sabor.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Calienta y disfruta</h3>
+                <p>Hierve la bolsa por 8 minutos. ¡Listo para servir!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preparation -->
+    <section class="preparation">
+        <div class="preparation-content">
+            <div class="preparation-visual">
+                <div class="preparation-timer">8<span>min</span></div>
+                <p>Es todo lo que necesitas</p>
+            </div>
+            <div class="preparation-text">
+                <h2>Preparación ultra simple</h2>
+                <p>Nuestros platos vienen sellados al vacío y congelados. Solo necesitas agua hirviendo para tener una comida de calidad de restaurante.</p>
+                <ol class="preparation-steps">
+                    <li>
+                        <span class="prep-step-num">1</span>
+                        <div class="prep-step-content">
+                            <h4>Hierve agua</h4>
+                            <p>Llena una olla con agua suficiente para cubrir la bolsa.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="prep-step-num">2</span>
+                        <div class="prep-step-content">
+                            <h4>Sumerge la bolsa</h4>
+                            <p>Coloca la bolsa sellada directamente en el agua hirviendo.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="prep-step-num">3</span>
+                        <div class="prep-step-content">
+                            <h4>Espera 8-10 minutos</h4>
+                            <p>Deja cocinar a fuego bajo hasta que esté caliente.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="prep-step-num">4</span>
+                        <div class="prep-step-content">
+                            <h4>Abre y sirve</h4>
+                            <p>Corta la bolsa con cuidado y sirve directo en el plato.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Info -->
+    <section class="delivery">
+        <div class="section-header">
+            <span class="section-tag">Despacho</span>
+            <h2>Información de envío</h2>
+            <p>Despachamos en Santiago los días indicados. Planifica tu semana con nosotros.</p>
+        </div>
+        <div class="delivery-grid">
+            <div class="delivery-card">
+                <div class="delivery-icon">📅</div>
+                <h3>Días de despacho</h3>
+                <p>Realizamos entregas tres veces por semana para que tu comida llegue fresca.</p>
+                <div class="delivery-days">
+                    <span class="delivery-day">Lunes</span>
+                    <span class="delivery-day">Miércoles</span>
+                    <span class="delivery-day">Viernes</span>
+                </div>
+            </div>
+            <div class="delivery-card">
+                <div class="delivery-icon">🚚</div>
+                <h3>Envío gratis</h3>
+                <p>En compras sobre $30.000 el envío es gratis dentro del radio de cobertura en Santiago.</p>
+            </div>
+            <div class="delivery-card">
+                <div class="delivery-icon">❄️</div>
+                <h3>Cadena de frío</h3>
+                <p>Tus productos viajan en condiciones óptimas de temperatura hasta tu puerta.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo-text">Flor de Cocina</div>
+                <p>Huerto y cocina. Platos preparados con ingredientes frescos, sellados al vacío y congelados. Calidad de chef en tu mesa.</p>
+                <div class="footer-social">
+                    <a href="#">📷</a>
+                    <a href="#">📘</a>
+                    <a href="#">💬</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Productos</h4>
+                <ul>
+                    <li><a href="#">Proteínas</a></li>
+                    <li><a href="#">Acompañamientos</a></li>
+                    <li><a href="#">Packs</a></li>
+                    <li><a href="#">Planes semanales</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Información</h4>
+                <ul>
+                    <li><a href="#">Cómo funciona</a></li>
+                    <li><a href="#">Zonas de despacho</a></li>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="#">hola@flordecocina.cl</a></li>
+                    <li><a href="#">+56 9 XXXX XXXX</a></li>
+                    <li><a href="#">Chicureo, Santiago</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Flor de Cocina. Todos los derechos reservados.</p>
+            <div class="footer-payments">
+                <span>💳 Webpay</span>
+                <span>💳 Tarjetas</span>
+                <span>🏦 Transferencia</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart -->
+    <div class="floating-cart">
+        <button class="floating-cart-btn">
+            🛒
+            <span class="floating-cart-count">3</span>
+        </button>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Add to cart animation
+        const addBtns = document.querySelectorAll('.product-add-btn, .product-quick-add');
+        addBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.textContent = '✓';
+                btn.style.background = '#7D8B6F';
+                setTimeout(() => {
+                    if (btn.classList.contains('product-add-btn')) {
+                        btn.textContent = 'Agregar';
+                        btn.style.background = '';
+                    } else {
+                        btn.textContent = '+';
+                        btn.style.background = '';
+                    }
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
